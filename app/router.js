@@ -1,3 +1,4 @@
+// app/router.js
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
 
@@ -7,6 +8,8 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('bands');
+  this.route('songs');
 });
 
 export default Router;
