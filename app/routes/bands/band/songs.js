@@ -7,6 +7,10 @@ export default Route.extend({
     return this.modelFor('bands.band');
   },
 
+  resetController: function(controller) {
+    controller.set('songCreationStarted', false);
+  },
+
   actions: {
     createSong: function() {
       var controller = this.get('controller');
