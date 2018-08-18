@@ -80,52 +80,21 @@ test('create a new band', function(assert) {
 
 test('Create a new song in two steps', function(assert) {
   server = new Pretender(function() {
-    this.get('/bands', function() {
-      var response = {
-        data: [
-          {
-            id: 1,
-            type: 'bands',
-            attributes: {
-              name: 'Radiohead'
-            }
-          }
-        ]
-      };
-      return [200, { 'Content-Type': 'applictation/vnd.api+json' }, JSON.stringify(response)];
-    });
-    this.get('/bands/1', function() {
-      var response = {
-        data: {
-          id: 1,
-          type: 'bands',
-          attributes: {
-            name: 'Radiohead'
-          }
+    httpStubs.stubBands(this, [
+      {
+        id: 1,
+        attributes: {
+          name: 'Radiohead'
         }
-      };
-      return [200, { 'Content-Type': 'application/vnd.api+json'}, JSON.stringify(response)];
-    });
-    this.post('/songs', function() {
-      var response = {
-        data: {
-          id: 1,
-          type: 'songs',
-          attributes: {
-            nmae: 'Killer Cars'
-          }
-        }
-      };
-      return [200, { 'Content-Type': 'application/vnd.api+json' }, JSON.stringify(response)];
-    });
+      }
+    ]);
+    httpStubs.stubSongs(this, 1, []);
+    httpStubs.stubCreateSong(this, 1);
   });
 
-  // visit('/');
-  // click('.band-link:contains("Radiohead")');
   selectBand('Radiohead');
   click('a:contains("create one")');
   fillIn('.new-song', 'Killer Cars');
-  // triggerEvent('.new-song-form', 'submit');
   submit('.new-song-form');
 
   andThen(function() {
