@@ -5,9 +5,11 @@ import wait from '../utils/wait';
 export default Route.extend({
   model: function() {
     const SIMULATE_LATENCY = false;
-    return SIMULATE_LATENCY ?
-      wait(this.store.findAll('band'), 3 * 1000) :
-      this.store.findAll('band');
+    if (SIMULATE_LATENCY) {
+      return wait(this.store.findAll('band'), 3 * 1000);
+    } else {
+      return this.store.findAll('band');
+    }
   },
 
   actions: {
