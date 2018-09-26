@@ -1,9 +1,13 @@
 // app/routes/bands/band/songs.js
 import Route from '@ember/routing/route';
+import wait from '../../../utils/wait';
 
 export default Route.extend({
   model: function() {
-    return this.modelFor('bands.band');
+    const SIMULATE_LATENCY = false;
+    return SIMULATE_LATENCY ?
+      wait(this.modelFor('bands.band'), 3000) :
+      this.modelFor('bands.band');
   },
 
   resetController: function(controller) {

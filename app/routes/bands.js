@@ -1,22 +1,13 @@
 // app/routes/bands.js
 import Route from '@ember/routing/route';
-import { Promise as EmberPromise } from 'rsvp';
-
-function wait(promise, delay) {
-  return new EmberPromise(function(resolve) {
-    setTimeout(function() {
-      promise.then(function(result) {
-        resolve(result);
-      });
-    }, delay);
-  });
-}
+import wait from '../utils/wait';
 
 export default Route.extend({
   model: function() {
-    // return this.store.findAll('band');
-    var bands = this.store.findAll('band');
-    return wait(bands, 3 * 1000);
+    const SIMULATE_LATENCY = false;
+    return SIMULATE_LATENCY ?
+      wait(this.store.findAll('band'), 3 * 1000) :
+      this.store.findAll('band');
   },
 
   actions: {
