@@ -33,7 +33,7 @@ export default {
     let responseForBands = [];
     data.forEach(function(band) {
       let responseForBand = responseItemForBand(band);
-      pretender.get('/bands' + responseForBand.id, function() {
+      pretender.get('/bands/' + responseForBand.id, function() {
         return [200, {'Content-Type': 'application/vnd.api+json'}, JSON.stringify({ data: responseForBand }) ];
       });
       responseForBands.push(responseForBand);
