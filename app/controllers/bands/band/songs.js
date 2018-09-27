@@ -1,7 +1,7 @@
 // app/controllers/bands/band/songs.js
 import { isEmpty } from '@ember/utils';
 import { computed } from '@ember/object';
-import { sort } from '@ember/object/computed';
+import { sort, alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import { capitalize } from 'rarwe/helpers/capitalize';
 
@@ -32,7 +32,8 @@ export default Controller.extend({
     });
   }),
 
-  sortedSongs: sort('matchingSongs', 'sortProperties'),
+  // sortedSongs: sort('matchingSongs', 'sortProperties'),
+  sortedSongs: alias('matchingSongs'),
 
   isAddButtonDisabled: computed('title', function() {
     return isEmpty(this.get('title'));
