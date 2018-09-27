@@ -2,6 +2,7 @@
 import Route from '@ember/routing/route';
 import wait from '../../../utils/wait';
 import RSVP from "rsvp";
+import { capitalize as capitalizeWords } from 'rarwe/helpers/capitalize';
 
 export default Route.extend({
   model: function() {
@@ -45,7 +46,7 @@ export default Route.extend({
       } else {
         return this.modelFor('bands.band');
       }
-      // normal case: 
+      // normal case:
       // return this.modelFor('bands.band');
     }
   },
@@ -57,7 +58,8 @@ export default Route.extend({
   actions: {
     didTransition: function() {
       var band = this.modelFor('bands.band');
-      document.title = `${band.get('name')} songs - Rock & Roll`;
+      var name = capitalizeWords(band.get('name'));
+      document.title = `${name} songs - Rock & Roll`;
     },
     createSong: function() {
       var controller = this.get('controller');
