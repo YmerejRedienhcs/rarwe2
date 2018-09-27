@@ -1,9 +1,15 @@
 // app/routes/bands.js
 import Route from '@ember/routing/route';
+import wait from '../utils/wait';
 
 export default Route.extend({
   model: function() {
-    return this.store.findAll('band');
+    const SIMULATE_LATENCY = false;
+    if (SIMULATE_LATENCY) {
+      return wait(this.store.findAll('band'), 3 * 1000);
+    } else {
+      return this.store.findAll('band');
+    }
   },
 
   actions: {

@@ -1,9 +1,53 @@
 // app/routes/bands/band/songs.js
 import Route from '@ember/routing/route';
+import wait from '../../../utils/wait';
+import RSVP from "rsvp";
 
 export default Route.extend({
   model: function() {
-    return this.modelFor('bands.band');
+    // let simLat = (value) => {
+    //   const SIM_LATENCY = false;
+    //   if (SIM_LATENCY) {
+    //     return wait(value, 3000);
+    //   } else {
+    //     return value;
+    //   }
+    // }
+    // let modelOrError = (value) => {
+    //   const SIMULATE_ERROR = true;
+    //   if (SIMULATE_ERROR) {
+    //     return RSVP.reject(value);
+    //   } else {
+    //     return value;
+    //   }
+    // };
+    //
+    // const SIMULATE_LATENCY = true;
+    // if (SIMULATE_LATENCY) {
+    //   return wait(modelOrError(this.modelFor('bands.band')), 3000);
+    // } else {
+    //   return modelOrError(this.modelFor('bands.band'));
+    // }
+    const SIM_ERROR = false;
+    const SIM_LATENCY = false;
+    if (SIM_ERROR) {
+      if (SIM_LATENCY) {
+        // I haven't been able to simulate latency AND error.
+        // console.log('this does not work');
+        // return wait(RSVP.reject(this.modelFor('bands.band')), 3000);
+        return RSVP.reject(wait(this.modelFor('bands.band'),3000));
+      } else {
+        return RSVP.reject(this.modelFor('bands.band'))
+      }
+    } else {
+      if (SIM_LATENCY) {
+        return wait(this.modelFor('bands.band'), 3000);
+      } else {
+        return this.modelFor('bands.band');
+      }
+      // normal case: 
+      // return this.modelFor('bands.band');
+    }
   },
 
   resetController: function(controller) {
