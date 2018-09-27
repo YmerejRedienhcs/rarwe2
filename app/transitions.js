@@ -12,8 +12,4 @@ export default function(){
       this.use('fade', { duration: 500 }),
       this.debug()
     );
-    this.transition(
-      this.inHelper('liquid-bind'),
-      this.use('slight-scale')
-    )
 }
