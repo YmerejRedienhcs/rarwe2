@@ -35,11 +35,13 @@
     "ember-cli-sri": "^2.1.0",
     "ember-cli-star-rating": "^0.5.0",
     "ember-cli-uglify": "^2.0.0",
+    "ember-cpm": "^3.2.0",
     "ember-data": "~2.18.0",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.0.0",
     "ember-source": "~2.18.0",
+    "ember-watson": "^0.9.1",
     "eslint-plugin-ember": "^5.0.0",
     "liquid-fire": "^0.29.5",
     "loader.js": "^4.2.3"

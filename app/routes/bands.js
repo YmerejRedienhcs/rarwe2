@@ -3,7 +3,7 @@ import Route from '@ember/routing/route';
 import wait from '../utils/wait';
 
 export default Route.extend({
-  model: function() {
+  model() {
     const SIMULATE_LATENCY = false;
     if (SIMULATE_LATENCY) {
       return wait(this.store.findAll('band'), 3 * 1000);
@@ -13,10 +13,10 @@ export default Route.extend({
   },
 
   actions: {
-    didTransition: function() {
+    didTransition() {
       document.title= 'Bands - Rock & Roll';
     },
-    createBand: function() {
+    createBand() {
       var route = this;
       var controller = this.get('controller');
 
