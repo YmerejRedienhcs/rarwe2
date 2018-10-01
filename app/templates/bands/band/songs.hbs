@@ -44,7 +44,34 @@
   {{#each sortedSongs as |song|}}
     <li class="list-group-item song">
       {{capitalize song.title}}
+      <!-- Following is the non-block form.  It would require updateRating
+        action in app/controllers/bands/band/songs.js to look like this:
+        updateRating: function(song, rating) {
+          if (song.get('rating') === rating) {
+            rating = null;
+          }
+          song.set('rating', rating);
+          return song.save();
+        }
       {{star-rating item=song rating=song.rating on-click=(action "updateRating")}}
+      -->
+      <!--
+        Using the block form of star-rating, below, one can use either of the
+        following to get glyphicon or font-awesome stars:
+          class="star-rating glyphicon {{if star.full 'glyphicon-star' 'glyphicon-star-empty'}}">
+          class="star-rating fa {{if star.full 'fa-star' 'fa-star-o'}}">
+        (One reason to use the block form would be to be able to specify
+        the class of the star, as is done below.)
+      -->
+      {{#star-rating item=song rating=song.rating as |stars|}}
+        {{#liquid-bind stars as |liquidStars|}}
+          {{#each liquidStars as |star|}}
+            <a href="#" {{action "updateRating" song star.rating}}
+              class="star-rating fa {{if star.full 'fa-star' 'fa-star-o'}}">
+            </a>
+          {{/each}}
+        {{/liquid-bind}}
+      {{/star-rating}}
     </li>
   {{/each}}
   {{#unless canCreateSong}}
