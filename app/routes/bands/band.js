@@ -4,7 +4,7 @@ import { isEmpty } from '@ember/utils';
 // import { Promise as EmberPromise } from 'rsvp';
 
 export default Route.extend({
-  model: function(params) {
+  model (params) {
     // console.log('Model hook called for `bands.band`; called with', params.slug);
 
     // var yayOrNay = function() {
@@ -23,7 +23,7 @@ export default Route.extend({
     return this.store.findRecord('band', params.id);
   },
 
-  afterModel: function(band) {
+  afterModel(band) {
     var description = band.get('description');
     if (isEmpty(description)) {
       this.transitionTo('bands.band.songs');

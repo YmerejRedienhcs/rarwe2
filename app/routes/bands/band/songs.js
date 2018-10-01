@@ -5,7 +5,7 @@ import RSVP from "rsvp";
 import { capitalize as capitalizeWords } from 'rarwe/helpers/capitalize';
 
 export default Route.extend({
-  model: function() {
+  model() {
     // let simLat = (value) => {
     //   const SIM_LATENCY = false;
     //   if (SIM_LATENCY) {
@@ -51,17 +51,17 @@ export default Route.extend({
     }
   },
 
-  resetController: function(controller) {
+  resetController(controller) {
     controller.set('songCreationStarted', false);
   },
 
   actions: {
-    didTransition: function() {
+    didTransition() {
       var band = this.modelFor('bands.band');
       var name = capitalizeWords(band.get('name'));
       document.title = `${name} songs - Rock & Roll`;
     },
-    createSong: function() {
+    createSong() {
       var controller = this.get('controller');
       var band = this.modelFor('bands.band');
       var song = this.store.createRecord('song', {

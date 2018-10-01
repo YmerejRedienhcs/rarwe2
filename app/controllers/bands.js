@@ -1,12 +1,9 @@
 // app/controllers/bands.js
-import { isEmpty } from '@ember/utils';
-import { computed } from '@ember/object';
 import Controller from '@ember/controller';
+import { empty } from '@ember/object/computed';
 
 export default Controller.extend({
   name: '',
 
-  isAddButtonDisabled: computed('name', function() {
-    return isEmpty(this.get('name'));
-  })
+isAddButtonDisabled: empty('name'),
 });

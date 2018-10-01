@@ -1,9 +1,8 @@
 // app/controllers/bands/band/songs.js
-import { isEmpty } from '@ember/utils';
 import { computed } from '@ember/object';
-import { sort } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import { capitalize } from 'rarwe/helpers/capitalize';
+import { sort, empty, bool, or } from '@ember/object/computed';
 
 export default Controller.extend({
   queryParams: {
@@ -14,7 +13,7 @@ export default Controller.extend({
   name: '',
   sortBy: 'ratingDesc',
   sortProperties: computed('sortBy', function() {
-    var options = {
+    const options = {
       'ratingDesc': 'rating:desc,title:asc',
       'ratingAsc': 'rating:asc,title:asc',
       'titleDesc': 'title:desc',
@@ -26,39 +25,36 @@ export default Controller.extend({
   searchTerm: '',
 
   matchingSongs: computed('model.songs.@each.title', 'searchTerm', function() {
-    var searchTerm = this.get('searchTerm').toLowerCase();
-    return this.get('model.songs').filter(function(song) {
+    return this.get('model.songs').filter((song) => {
+      let searchTerm = this.get('searchTerm').toLowerCase();
       return song.get('title').toLowerCase().indexOf(searchTerm) !== -1;
     });
   }),
 
   sortedSongs: sort('matchingSongs', 'sortProperties'),
 
-  isAddButtonDisabled: computed('title', function() {
-    return isEmpty(this.get('title'));
-  }),
+  isAddButtonDisabled: empty('title'),
 
-  canCreateSong: computed('songCreationStarted', 'model.songs.[]', function() {
-    return this.get('songCreationStarted') || this.get('model.songs.length');
-  }),
+  hasSongs: bool('model.songs.length'),
+  canCreateSong: or('songCreationStarted', 'hasSongs'),
 
   newSongPlaceholder: computed('model.name', function() {
-    var bandName = this.get('model.name');
+    let bandName = this.get('model.name');
     return `New ${capitalize(bandName)} song`;
   }),
 
   actions: {
-    enableSongCreation: function() {
+    enableSongCreation() {
       this.set('songCreationStarted', true);
     },
-    updateRating: function(song, rating) {
+    updateRating(song, rating) {
       if (song.get('rating') === rating) {
         rating = 0;
       }
       song.set('rating', rating);
       return song.save();
     },
-    setSorting: function(option) {
+    setSorting(option) {
       this.set('sortBy', option);
     },
   }
