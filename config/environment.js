@@ -1,3 +1,4 @@
+// config/environment.js
 'use strict';
 
 module.exports = function(environment) {
@@ -45,6 +46,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+    ENV.apiHost = 'http://json-api.rockandrollwithemberjs.com';
   }
 
   return ENV;
