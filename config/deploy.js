@@ -21,15 +21,15 @@ module.exports = function(deployTarget) {
   if (deployTarget === 'production') {
     ENV.build.environment = 'production';
     ENV.s3 = {
-      accessKeyId: process.env['AWS_PERSONAL_IAM_JEREMY_ACCESS_KEY_ID'],
-      secretAccessKey: process.env['AWS_PERSONAL_IAM_JEREMY_SECRET_ACCESS_KEY'],
-      bucket: 'rarwe-production-jeremy',
+      accessKeyId: process.env['AWS_SPARE_IAM_JERE7054_ACCESS_KEY_ID'],
+      secretAccessKey: process.env['AWS_SPARE_IAM_JERE7054_SECRET_ACCESS_KEY'],
+      bucket: 'rarwe-production-jere7054',
       region: 'us-east-1'
     };
     ENV['s3-index'] = {
-      accessKeyId: process.env['AWS_PERSONAL_IAM_JEREMY_ACCESS_KEY_ID'],
-      secretAccessKey: process.env['AWS_PERSONAL_IAM_JEREMY_SECRET_ACCESS_KEY'],
-      bucket: 'rarwe-production-jeremy',
+      accessKeyId: process.env['AWS_SPARE_IAM_JERE7054_ACCESS_KEY_ID'],
+      secretAccessKey: process.env['AWS_SPARE_IAM_JERE7054_SECRET_ACCESS_KEY'],
+      bucket: 'rarwe-production-jere7054',
       region: 'us-east-1'
     };
     // configure other plugins for production deploy target here
